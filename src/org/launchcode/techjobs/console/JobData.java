@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -87,9 +88,19 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
-    public static String findByValue(String column, String value)
+    public static ArrayList<HashMap<String, String>> findByValue(String value)
     {
-        return value;
+        loadData();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        for (HashMap<String, String> map : allJobs) {
+            for (Map.Entry<String, String> colName : map.entrySet()) {
+                if (colName.getValue().toLowerCase().contains(value.toLowerCase())) {
+                    jobs.add(map);
+                    break;
+                }
+            }
+        }
+        return jobs;
     }
     private static void loadData() {
 
